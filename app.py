@@ -77,7 +77,7 @@ def predict():
     target_date='2024-03-25',
     # Corrected code with consistent 40-day forecast
     forecast_data = pd.DataFrame({
-        'date': pd.date_range(start='2024-03-01', periods=30),  # 40 days
+        'date': pd.date_range(start='2024-03-01', periods=40),  # 40 days
         'precip': np.random.uniform(0, 20, 40),
         'temp': np.random.uniform(15, 35, 40),
         'humid': np.random.uniform(30, 80, 40),
