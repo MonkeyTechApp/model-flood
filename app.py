@@ -66,13 +66,13 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    data = request.get_json()
-    target_date = data.get("target_date")
-    forecast_data = pd.DataFrame(data.get("forecast_data"))
-    static_features = data.get("static_features")
+    # data = request.get_json()
+    # target_date = data.get("target_date")
+    # forecast_data = pd.DataFrame(data.get("forecast_data"))
+    # static_features = data.get("static_features")
 
-    if not target_date or forecast_data.empty or not static_features:
-        return jsonify({"error": "Invalid input data"}), 400
+    # if not target_date or forecast_data.empty or not static_features:
+    #     return jsonify({"error": "Invalid input data"}), 400
     
     target_date='2024-03-25',
     # Corrected code with consistent 40-day forecast
@@ -91,8 +91,12 @@ def predict():
         'soil_type': [0, 0, 1, 0, 0]  # Loam soil
     }
 
-
-    result = predict_for_date(target_date, forecast_data, static_features)
+    try:
+        result = predict_for_date(target_date, forecast_data, static_features)
+    except Exception as e :
+        app.logger.error(f"Prediction error: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+    
     return jsonify(result)
 
 # Step 3: Assign Flask app to Passenger
