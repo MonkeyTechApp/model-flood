@@ -3,10 +3,16 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+from tensorflow.keras.layers import LSTM
 from tensorflow.keras.models import load_model
 import joblib
 
 app = Flask(__name__)
+
+# Workaround for time_major=False
+def lstm_with_ignore(**kwargs):
+    kwargs.pop('time_major', None)
+    return LSTM(**kwargs)
 
 # Step 1: Define Your Prediction Function
 def predict_for_date(target_date, forecast_data, static_features):
@@ -42,7 +48,13 @@ def predict_for_date(target_date, forecast_data, static_features):
         'static': static_input
     }
 
-    model = load_model('flood_drought_model.h5', compile=False)
+    # model = load_model('flood_drought_model.h5', compile=False)
+    # Load model with custom handler
+    model = load_model(
+        'flood_drought_model.h5',
+        custom_objects={'LSTM': lstm_with_ignore},
+        compile=False
+    )
 
     flood_prob, drought_prob = model.predict([
         np.expand_dims(input_data['temporal'], axis=0),
