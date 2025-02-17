@@ -1,0 +1,11 @@
+# Example .slugignore
+*.pyc
+*.pyo
+__pycache__
+.venv
+env/
+.git/
+.gitignore
+data/       # Exclude large datasets
+notebooks/  # Exclude Jupyter notebooks
+tests/
