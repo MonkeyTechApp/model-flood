@@ -1,7 +1,7 @@
-tensorflow>=2.10.0  # Use CPU-only to reduce size
-flask==3.0.0            # Minimal web framework
-gunicorn==21.2.0        # Lightweight server
-numpy==1.24.4           # Pinned to avoid bloat
+tensorflow-cpu>=2.10.0  # ~180MB (instead of 600MB for full TF)
+flask==3.0.0
+gunicorn==21.2.0
+numpy==1.24.4
 scikit-learn
 joblib
 pandas
