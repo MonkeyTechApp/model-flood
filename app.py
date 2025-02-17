@@ -74,7 +74,7 @@ def predict():
     # if not target_date or forecast_data.empty or not static_features:
     #     return jsonify({"error": "Invalid input data"}), 400
     
-    target_date='2024-03-25',
+    target_date='2024-03-25'
     # Corrected code with consistent 40-day forecast
     forecast_data = pd.DataFrame({
         'date': pd.date_range(start='2024-03-01', periods=40),  # 40 days
