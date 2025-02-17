@@ -1,4 +1,4 @@
-tensorflow-cpu>=2.5.0  # Use CPU-only to reduce size
+tensorflow>=2.10.0  # Use CPU-only to reduce size
 flask
 numpy
 scikit-learn
