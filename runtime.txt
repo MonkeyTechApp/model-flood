@@ -1,1 +1,0 @@
-python-3.10.12  # Compatible with TensorFlow 2.10+
