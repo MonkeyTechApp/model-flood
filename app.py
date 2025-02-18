@@ -20,8 +20,8 @@ def predict_for_date(target_date, forecast_data, static_features):
     start_date = end_date - pd.Timedelta(days=29)
 
     sequence = forecast_data[
-        (forecast_data['date'] >= start_date) & 
-        (forecast_data['date'] <= end_date)
+        (pd.to_datetime(forecast_data['date']) >= start_date) & 
+        (pd.to_datetime(forecast_data['date']) <= end_date)
     ].sort_values('date')
 
     sequence = sequence[['precip', 'temp', 'humid', 'soil_m', 'vegetation']].values
