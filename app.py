@@ -78,30 +78,30 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    # data = request.get_json()
-    # target_date = data.get("target_date")
-    # forecast_data = pd.DataFrame(data.get("forecast_data"))
-    # static_features = data.get("static_features")
+    data = request.get_json()
+    target_date = data.get("target_date")
+    forecast_data = pd.DataFrame(data.get("forecast_data"))
+    static_features = data.get("static_features")
 
-    # if not target_date or forecast_data.empty or not static_features:
-    #     return jsonify({"error": "Invalid input data"}), 400
+    if not target_date or forecast_data.empty or not static_features:
+        return jsonify({"error": "Invalid input data"}), 400
     
-    target_date='2024-03-25'
-    # Corrected code with consistent 40-day forecast
-    forecast_data = pd.DataFrame({
-        'date': pd.date_range(start='2024-03-01', periods=40),  # 40 days
-        'precip': np.random.uniform(0, 20, 40),
-        'temp': np.random.uniform(15, 35, 40),
-        'humid': np.random.uniform(30, 80, 40),
-        'soil_m': np.random.uniform(50, 120, 40),
-        'vegetation': np.random.uniform(0.3, 0.7, 40)
-    })
-    # Static features for a location
-    static_features = {
-        'elevation': 245.6,
-        'slope': 3.8,
-        'soil_type': [0, 0, 1, 0, 0]  # Loam soil
-    }
+    # target_date='2024-03-25'
+    # # Corrected code with consistent 40-day forecast
+    # forecast_data = pd.DataFrame({
+    #     'date': pd.date_range(start='2024-03-01', periods=40),  # 40 days
+    #     'precip': np.random.uniform(0, 20, 40),
+    #     'temp': np.random.uniform(15, 35, 40),
+    #     'humid': np.random.uniform(30, 80, 40),
+    #     'soil_m': np.random.uniform(50, 120, 40),
+    #     'vegetation': np.random.uniform(0.3, 0.7, 40)
+    # })
+    # # Static features for a location
+    # static_features = {
+    #     'elevation': 245.6,
+    #     'slope': 3.8,
+    #     'soil_type': [0, 0, 1, 0, 0]  # Loam soil
+    # }
 
     try:
         result = predict_for_date(target_date, forecast_data, static_features)
