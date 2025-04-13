@@ -288,9 +288,7 @@ def predict_reservoir_levels(data, metadata, time_steps=30):
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple health check endpoint"""
-    MODEL = load_model('model.h5', 
-                       custom_objects={'LSTM': lstm_with_ignore},
-                       compile = False)
+    MODEL = load_model('model.h5')
     if MODEL is not None :
         return jsonify({"status": "true", "model loaded": True}) 
     
@@ -434,6 +432,12 @@ def predict_custom_horizons():
     
 #     # Run app
 #     app.run(host='0.0.0.0', port=port, debug=False)
+
+
+# Step 2: Create API Routes
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "Flask API is running!"})
 
 # Step 3: Assign Flask app to Passenger
 application = app
