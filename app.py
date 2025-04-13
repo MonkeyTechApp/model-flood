@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
+from tensorflow.keras.layers import LSTM
 import joblib
 from sklearn.preprocessing import StandardScaler
 import os
@@ -285,11 +286,18 @@ def predict_reservoir_levels(data, metadata, time_steps=30):
     
     return results
 
+# Workaround for time_major=False
+def lstm_with_ignore(**kwargs):
+    kwargs.pop('time_major', None)
+    return LSTM(**kwargs)
+
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple health check endpoint"""
     try:
-        MODEL = load_model('model.h5')
+        MODEL = load_model('model.h5',
+            custom_objects={'LSTM': lstm_with_ignore},
+            compile=False)
     except Exception as e:
         logger.error(f"Error loading models: {str(e)}")
         logger.error(traceback.format_exc())
