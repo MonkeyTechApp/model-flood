@@ -288,7 +288,8 @@ def predict_reservoir_levels(data, metadata, time_steps=30):
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple health check endpoint"""
-    if load_models() == False :
+    MODEL = load_model(model_path)
+    if MODEL is not None :
         return jsonify({"status": "healthy", "model_loaded": True}) 
     
     load_models()
