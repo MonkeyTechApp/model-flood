@@ -38,7 +38,10 @@ def load_models():
     
     try:
         logger.info(f"Loading model from {model_path}")
-        MODEL = load_model(model_path)
+        # MODEL = load_model(model_path)
+        MODEL = load_model(model_path,
+            custom_objects={'LSTM': lstm_with_ignore},
+            compile=False)
         logger.info(f"Model loaded successfully with input shape: {MODEL.input_shape}")
         
         logger.info(f"Loading scaler from {scaler_path}")
@@ -294,18 +297,15 @@ def lstm_with_ignore(**kwargs):
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple health check endpoint"""
-    try:
-        MODEL = load_model('model.h5',
-            custom_objects={'LSTM': lstm_with_ignore},
-            compile=False)
-    except Exception as e:
-        logger.error(f"Error loading models: {str(e)}")
-        logger.error(traceback.format_exc())
-        return jsonify({"mess": traceback.format_exc(), str(e): True})
+    # try:
+    #     MODEL = load_model('model.h5',
+    #         custom_objects={'LSTM': lstm_with_ignore},
+    #         compile=False)
+    # except Exception as e:
+    #     logger.error(f"Error loading models: {str(e)}")
+    #     logger.error(traceback.format_exc())
+    #     return jsonify({"mess": traceback.format_exc(), str(e): True})
         
-    
-    if MODEL is not None :
-        return jsonify({"status": "true", "model loaded": True}) 
     
     load_models()
     if MODEL is not None and SCALER is not None:
