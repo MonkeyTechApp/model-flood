@@ -1,4 +1,4 @@
-tensorflow-cpu>=2.10.0  # ~180MB (instead of 600MB for full TF)
+tensorflow-cpu>=2.12.0  # ~180MB (instead of 600MB for full TF)
 flask==3.0.0
 gunicorn==21.2.0
 numpy==1.24.4
