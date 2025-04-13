@@ -290,7 +290,7 @@ def health_check():
     """Simple health check endpoint"""
     MODEL = load_model(model_path)
     if MODEL is not None :
-        return jsonify({"status": "healthy", "model_loaded": True}) 
+        return jsonify({"status": "true", "model loaded": True}) 
     
     load_models()
     if MODEL is not None and SCALER is not None:
