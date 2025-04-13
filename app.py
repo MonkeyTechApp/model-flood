@@ -38,7 +38,6 @@ def load_models():
     
     try:
         logger.info(f"Loading model from {model_path}")
-        # MODEL = load_model(model_path)
         MODEL = load_model(model_path,
             custom_objects={'LSTM': lstm_with_ignore},
             compile=False)
@@ -297,14 +296,16 @@ def lstm_with_ignore(**kwargs):
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple health check endpoint"""
-    # try:
-    #     MODEL = load_model('model.h5',
-    #         custom_objects={'LSTM': lstm_with_ignore},
-    #         compile=False)
-    # except Exception as e:
-    #     logger.error(f"Error loading models: {str(e)}")
-    #     logger.error(traceback.format_exc())
-    #     return jsonify({"mess": traceback.format_exc(), str(e): True})
+    try:
+        MODEL = load_model('model.h5',
+            custom_objects={'LSTM': lstm_with_ignore},
+            compile=False)
+        SCALER = joblib.load('scaler.joblib')
+        
+    except Exception as e:
+        logger.error(f"Error loading models: {str(e)}")
+        logger.error(traceback.format_exc())
+        return jsonify({"mess": traceback.format_exc(), str(e): True})
         
     
     load_models()
