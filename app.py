@@ -32,8 +32,8 @@ def load_models():
     """Load model and scaler once at startup"""
     global MODEL, SCALER
     
-    model_path = os.environ.get('MODEL_PATH', 'model.h5')
-    scaler_path = os.environ.get('SCALER_PATH', 'scaler.joblib')
+    model_path = 'model.h5'
+    scaler_path = 'scaler.joblib'
     
     try:
         logger.info(f"Loading model from {model_path}")
@@ -418,15 +418,15 @@ def predict_custom_horizons():
             "message": str(e)
         }), 500
 
-if __name__ == '__main__':
-    # Load models at startup
-    load_models()
+# if __name__ == '__main__':
+#     # Load models at startup
+#     load_models()
     
-    # Get port from environment variable or use default
-    port = int(os.environ.get('PORT', 5000))
+#     # Get port from environment variable or use default
+#     port = int(os.environ.get('PORT', 5000))
     
-    # Run app
-    app.run(host='0.0.0.0', port=port, debug=False)
+#     # Run app
+#     app.run(host='0.0.0.0', port=port, debug=False)
 
 # Step 3: Assign Flask app to Passenger
 application = app
